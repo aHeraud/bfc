@@ -1,0 +1,35 @@
+use crate::lexer;
+use crate::lexer::Token;
+use crate::ast::Node;
+
+grammar<'input>;
+
+pub Program: Vec<Node> = <ins:Instruction*> => ins;
+
+Instruction: Node = {
+    ">" => Node::IncrementPointer,
+    "<" => Node::DecrementPointer,
+    "+" => Node::Increment,
+    "-" => Node::Decrement,
+    "." => Node::PrintChar,
+    "," => Node::ReadChar,
+    <l:Loop> => Node::Loop(l)
+};
+
+Loop: Vec<Node> = "[" <body:Instruction*> "]" => body;
+
+extern {
+    type Location = usize;
+    type Error = lexer::LexerError;
+
+    enum Token {
+        "[" => Token::LoopStart,
+        "]" => Token::LoopEnd,
+        ">" => Token::IncPtr,
+        "<" => Token::DecPtr,
+        "+" => Token::Inc,
+        "-" => Token::Dec,
+        "." => Token::Print,
+        "," => Token::Read
+    }
+}

@@ -1,0 +1,16 @@
+[package]
+name = "bfc"
+version = "0.1.0"
+authors = ["Achille Heraud <achille@heraud.io>"]
+edition = "2018"
+
+[dependencies]
+cranelift = "0.50.0"
+cranelift-module = "0.50.0"
+cranelift-faerie = "0.50.0"
+target-lexicon ="^0.9.0"
+lalrpop-util = "0.17.2"
+structopt = "0.3.4"
+
+[build-dependencies]
+lalrpop = "0.17.2"
